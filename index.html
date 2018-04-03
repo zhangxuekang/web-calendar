@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>提醒日历calendar</title>
+	<link rel="stylesheet" type="text/css" href="calendar.css">
+</head>
+<body>
+	<div id="wrap">
+
+	    <div id="headTime">
+	    	<div>
+	    		<span id="hour"></span>
+	    	</div>
+	    	<div>
+	    		<span id="date"></span>
+	    	</div>
+	    </div>
+
+        <div id="calendarBody">
+        	<div id="calendarBtn">
+        		<span id="calendarTitle"></span>
+        		<span id="lt">&lt;</span>
+        		<span id="gt">&gt;</span>
+        	</div>
+        	<div id="calendarTable">
+        		
+        	</div>
+        </div>
+
+        <div class="data inputDiv hide">
+        	<p>
+        		<label for="hour">小时:</label>
+        	    <input type="number" id="hourInput" name="hour" placeholder="0-23" max="24" min="0">
+        	    <label for="min">分钟:</label>
+        	    <input type="number" id="minInput" name="min" placeholder="0-59" max="59" min="0">
+        	</p>
+        	<p>
+        		<textarea id="remind" placeholder="请填写提醒"></textarea>
+        	</p>
+        	<p>
+        		<button id="btn">添&nbsp;&nbsp;加&nbsp;&nbsp;提&nbsp;&nbsp;醒</button>
+        	</p>
+        </div>
+
+        <div class="data showDiv hide" title="点击删除">
+        </div>
+
+	</div>
+	
+</body>
+<script type="text/javascript" src="calendar.js"></script>
+</html>

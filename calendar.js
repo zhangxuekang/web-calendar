@@ -1,4 +1,4 @@
-(function() {
+(function(util) {
     'use strict'
     console.log("运行以下代码，清空所有提醒：localStorage.setItem('clockTimeArr','');");
     if(!localStorage.getItem("clockTimeArr")){
@@ -49,8 +49,8 @@
         //利用时间创造日历表格
         createTable(year, month);
         //翻开新页后，隐藏输入框和提醒框
-        addClass(inputDivEl,"hide");
-        addClass(showDivEl,"hide");
+        util.addClass(inputDivEl,"hide");
+        util.addClass(showDivEl,"hide");
         showDivEl.innerHTML = "";
     }
     /*
@@ -61,12 +61,12 @@
         if (event.target.nodeName.toLowerCase() == "td") {
             var activeEl = document.getElementsByClassName("active");
             if (activeEl.length > 0 && event.target !== activeEl[0]) {
-                removeClass(activeEl[0], "active");
+                util.removeClass(activeEl[0], "active");
             }
-            addClass(event.target, "active");
+            util.addClass(event.target, "active");
         }
         //判断是否已经有了提醒
-        if (hasClass(event.target, "record")) {
+        if (util.hasClass(event.target, "record")) {
             var temp = JSON.parse(localStorage.getItem("clockTimeArr")||"[]");
             var len = temp.length;
             if (len > 0) {
@@ -75,12 +75,12 @@
                         monthShow == temp[i][1] &&
                         event.target.innerHTML == temp[i][2]) {
                         showDivEl.innerHTML = temp[i][5];
-                        addClass(inputDivEl, "hide");
+                        util.addClass(inputDivEl, "hide");
                     }
                 }
             }
         }else{
-            removeClass(inputDivEl, "hide");
+            util.removeClass(inputDivEl, "hide");
             showDivEl.innerHTML = "";
         }
         //每次切换都置空输入框
@@ -91,9 +91,9 @@
         minEl.value = "";
         remindEl.value = "";
         if (showDivEl.innerHTML == "") {
-            addClass(showDivEl,"hide");
+            util.addClass(showDivEl,"hide");
         }else{
-            removeClass(showDivEl,"hide");
+            util.removeClass(showDivEl,"hide");
         }
         var dateTd = document.getElementsByClassName("active")[0];
         dateShow = dateTd.innerHTML;
@@ -132,17 +132,17 @@
                 temp.push(timeArr);
                 localStorage.setItem("clockTimeArr",JSON.stringify(temp))
                 if (!!dateTd) {
-                    addClass(dateTd, "record");
+                    util.addClass(dateTd, "record");
                 } else if (!!dataNowTd) {
-                    addClass(dataNowTd, "record");
+                    util.addClass(dataNowTd, "record");
                 }
-                addClass(inputDivEl, "hide");
+                util.addClass(inputDivEl, "hide");
                 //清空输入框
                 hourEl.value = "";
                 minEl.value = "";
                 remindEl.value = "";
                 showDivEl.innerHTML = remindtext;
-                removeClass(showDivEl,"hide");
+                util.removeClass(showDivEl,"hide");
             }
         } else {
             alert("请输入正确的时间格式");
@@ -155,7 +155,7 @@
     showDivEl.onclick = function(){
         //删除提醒
         showDivEl.innerHTML = "";
-        addClass(showDivEl,"hide");
+        util.addClass(showDivEl,"hide");
         //删除本地记录
         var temp = JSON.parse(localStorage.getItem("clockTimeArr")||"[]");
         var len = temp.length;
@@ -166,9 +166,9 @@
                         dateShow == temp[i][2]) {
                         temp.splice(i,1);
                         localStorage.setItem("clockTimeArr",JSON.stringify(temp));
-                        removeClass(inputDivEl, "hide");
+                        util.removeClass(inputDivEl, "hide");
                         var dateTd = document.getElementsByClassName("active")[0];
-                        removeClass(dateTd,"record");
+                        util.removeClass(dateTd,"record");
                     }
                 }
         }
@@ -185,11 +185,9 @@
         currentMin = date.getMinutes();
         currentSecond = date.getSeconds();
         //小时和分钟
-        var timeString = date.toLocaleTimeString();
-        hourEl.innerHTML = timeString;
+        hourEl.innerHTML = currentHour+":"+currentMin+":"+currentSecond;
         //年月日
-        var dateString = date.toLocaleDateString();
-        dateEl.innerHTML = dateString;
+        dateEl.innerHTML = currentYear+"年"+(currentMonth+1)+"月"+currentDate+"日";
         //判断是否提醒
         var temp = JSON.parse(localStorage.getItem("clockTimeArr")||"[]");
         var len = temp.length;
@@ -319,10 +317,10 @@
         value = value.toString();
         rowEl.insertCell(index);
         if (value.indexOf("*") > -1) {
-            addClass(rowEl.cells[index], "current");
+            util.addClass(rowEl.cells[index], "current");
         }
         if (value.indexOf("$") > -1) {
-            addClass(rowEl.cells[index], "record");
+            util.addClass(rowEl.cells[index], "record");
         }
         value = value.replace(/\$|\*/g, "");
         rowEl.cells[index].appendChild(document.createTextNode(value));
@@ -330,7 +328,7 @@
 
     //添加类
     function addClass(el, classVal) {
-        if (hasClass(el, classVal)) {
+        if (util.hasClass(el, classVal)) {
             return;
         }
         var classNameArr = el.className.split(" ")
@@ -339,7 +337,7 @@
     }
     //删除类
     function removeClass(el, classVal) {
-        if(!hasClass(el, classVal)){
+        if(!util.hasClass(el, classVal)){
             return;
         }
         var classNameArr = el.className.split(" ");
@@ -358,4 +356,4 @@
     }
 
 
-})()
+})(util)

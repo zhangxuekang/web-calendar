@@ -15,8 +15,6 @@
     var showDivEl = document.getElementsByClassName("showDiv")[0];
     var inputDivEl = document.getElementsByClassName("inputDiv")[0];
     var calendarBtnEl = document.getElementById("calendarBtn");
-    var ltEl = document.getElementById("lt");
-    var glEl = document.getElementById("gt");
     var btn = document.getElementById("btn");
     var calendarTitleEl = document.getElementById('calendarTitle');
     setInterval(getTime, 1000);
@@ -37,9 +35,9 @@
         nowMonth = nowMonth.substring(0, nowMonth.length - 1) - 1;
         //计算出新页的时间
         var time = "";
-        if(event.target.id=="lt"){
+        if(event.target.className && ~event.target.className.indexOf("lt")){
             time = new Date(nowYear, nowMonth - 1);
-        }else if(event.target.id=="gt"){
+        }else if(event.target.className && ~event.target.className.indexOf("gt")){
             time = new Date(nowYear, nowMonth + 1);
         }else{
             return;

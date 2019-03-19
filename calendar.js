@@ -1,5 +1,6 @@
 (function(util) {
     'use strict'
+    console.log("不忍直视的项目(一次面试作品, 我以前居然能写出这么傻叉的代码?), 2018年3月")
     console.log("运行以下代码，清空所有提醒：localStorage.setItem('clockTimeArr','');");
     if(!localStorage.getItem("clockTimeArr")){
         localStorage.setItem('clockTimeArr','[]');
